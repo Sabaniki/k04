@@ -9,11 +9,13 @@ public class BallManager : ISdpGameObject {
     public List<Ball> Balls { get; private set; }
     public Proxy gc { get; set; }
     private Vector2Int screenSize;
+    public bool CanGenerateBalls;
 
     public BallManager(Proxy gc, Vector2Int screenSize) {
         Balls = new List<Ball>();
         this.gc = gc;
         this.screenSize = screenSize;
+        CanGenerateBalls = true;
     }
 
     public void AddBall(BallColor ballColor) {
@@ -41,8 +43,8 @@ public class BallManager : ISdpGameObject {
             deletedBallNum++;
             return true;
         });
-        
-        for (var i = 0; i < deletedBallNum; i++) AddBall(BallColor.RANDOM);
+
+        if (CanGenerateBalls) for (var i = 0; i < deletedBallNum; i++) AddBall(BallColor.RANDOM);
         //Debug.Log(Balls.Count.ToString());
     }
 }

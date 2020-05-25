@@ -25,7 +25,7 @@ public sealed class Game : GameBase {
         ballManager = new BallManager(gc, screenSize);
         for (var i = 0; i < 30; i++) ballManager.AddBall(BallColor.RANDOM);
         player = new Player(gc);
-        counter = new Counter(gc, 1800);
+        counter = new Counter(gc, 30);
     }
 
 
@@ -36,6 +36,7 @@ public sealed class Game : GameBase {
         // 起動からの経過時間を取得します
         counter.UpdateOwn();
         player.UpdateOwn();
+        ballManager.CanGenerateBalls = !counter.IsGameFinished;
         ballManager.UpdateOwn();
         ballManager.Balls.ToList().ForEach(ball => {
             if (ball.IsActive && player.CheckHitBall(ball)) {

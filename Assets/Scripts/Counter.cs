@@ -9,6 +9,7 @@ public class Counter : ISdpGameObject {
     private readonly float limitTime;
     private float currentTime;
     private float TimeRemaining => limitTime - currentTime;
+    public bool IsGameFinished => TimeRemaining < 0;
 
     public Counter(Proxy gc, int limitTime) {
         this.gc = gc;
