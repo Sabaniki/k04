@@ -5,29 +5,41 @@ using UnityEngine;
 public class Player: ISdpGameObject {
     public Proxy gc { get; set; }
     public static Vector2Int ScreenSize;
-    public Vector2Int Position;
+    private Vector2Int position;
     public Vector2Int Size;
-    public Vector2Int Speed;
+    private Vector2Int speed;
     private PlayerDirection direction;
     public Player(Proxy gc) {
         this.gc = gc;
         Size = new Vector2Int(32, 32);
-        Position = new Vector2Int(ScreenSize.x / 2, ScreenSize.y - Size.y);
-        Speed = new Vector2Int(3, 3);
+        position = new Vector2Int(ScreenSize.x / 2, ScreenSize.y - Size.y);
+        speed = new Vector2Int(3, 3);
     }
 
     public void DrawOwn(Action callback = null) {
-        gc.DrawClipImage((int)direction, Position.x, Position.y, 0, 64, Size.x, Size.y);
+        gc.DrawClipImage((int)direction, position.x, position.y, 0, 64, Size.x, Size.y);
+    }
+
+    public bool CheckHitBall(Ball ball) {
+        var isHit = gc.CheckHitRect(
+            ball.Position.x, ball.Position.y, ball.radios, ball.radios,
+            position.x, position.y, Size.x, Size.y
+        );
+        if (isHit) {
+            ball.IsActive = false;
+        }
+
+        return isHit;
     }
 
     public void UpdateOwn() {
         if (gc.GetPointerFrameCount(0) <= 0) return;
         if (gc.GetPointerX(0) > ScreenSize.x / 2) {
-            Position.x += Speed.x;
+            position.x += speed.x;
             direction = PlayerDirection.RIGHT;
         }
         else {
-            Position.x -= Speed.x;
+            position.x -= speed.x;
             direction = PlayerDirection.LEFT;
         }
     }

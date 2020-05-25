@@ -5,17 +5,17 @@ using UnityEngine;
 public class Ball : ISdpGameObject {
     public Proxy gc { get; set; }
     public Vector2Int Position;
-    public Vector2Int Speed;
-    private int imageId;
-    private readonly int radios;
+    public Vector2 Speed;
+    public BallColor Color { get; private set; }
+    public readonly int radios;
     public static Vector2Int displaySize;
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; set; }
 
-    public Ball(Proxy gc, BallColor ballColor, Vector2Int position, Vector2Int speed) {
+    public Ball(Proxy gc, BallColor ballColor, Vector2Int position, Vector2 speed) {
         this.gc = gc;
         Position = position;
         Speed = speed;
-        imageId = (int) ballColor;
+        Color = ballColor;
         radios = 24;
         IsActive = true;
         
@@ -23,12 +23,12 @@ public class Ball : ISdpGameObject {
     }
 
     public void DrawOwn(Action callback = null) {
-        gc.DrawImage(imageId, Position.x, Position.y);
+        gc.DrawImage((int)Color, Position.x, Position.y);
     }
 
     public void UpdateOwn() {
-        Debug.Log("position: " + Position.ToString() + "active: " + IsActive.ToString());
-        Position.y += Speed.y;
+        //Debug.Log("position: " + Position.ToString() + "active: " + IsActive.ToString());
+        Position.y += (int)Speed.y;
         IsActive = Position.y < displaySize.y;
     }
 }

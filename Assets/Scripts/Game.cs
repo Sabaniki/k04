@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using Sequence = System.Collections.IEnumerator;
 
@@ -9,8 +10,10 @@ public sealed class Game : GameBase {
     // 変数の宣言
     int sec = 0;
     private Vector2Int screenSize;
-    private BallGenerator ballGenerator;
+    private BallManager ballManager;
     private Player player;
+    private Counter counter;
+
     /// <summary>
     /// 初期化処理
     /// </summary>
@@ -19,11 +22,10 @@ public sealed class Game : GameBase {
         // キャンバスの大きさを設定します
         gc.SetResolution(screenSize.x, screenSize.y);
         Player.ScreenSize = screenSize;
-        ballGenerator = new BallGenerator(gc, screenSize);
-        ballGenerator.AddBall(BallColor.RED);
-        ballGenerator.AddBall(BallColor.BLUE);
-        ballGenerator.AddBall(BallColor.YELLOW);
+        ballManager = new BallManager(gc, screenSize);
+        for (var i = 0; i < 30; i++) ballManager.AddBall(BallColor.RANDOM);
         player = new Player(gc);
+        counter = new Counter(gc, 1800);
     }
 
 
@@ -32,9 +34,15 @@ public sealed class Game : GameBase {
     /// </summary>
     public override void UpdateGame() {
         // 起動からの経過時間を取得します
-        sec = (int) gc.TimeSinceStartup;
-        ballGenerator.UpdateOwn();
+        counter.UpdateOwn();
         player.UpdateOwn();
+        ballManager.UpdateOwn();
+        ballManager.Balls.ToList().ForEach(ball => {
+            if (ball.IsActive && player.CheckHitBall(ball)) {
+                counter.AddPoint(ball);
+                ball.Position.y = screenSize.y + player.Size.y;
+            }
+        });
     }
 
     /// <summary>
@@ -44,16 +52,10 @@ public sealed class Game : GameBase {
         // 画面を白で塗りつぶします
         gc.ClearScreen();
 
-        ballGenerator.DrawOwn();
+        ballManager.DrawOwn();
         player.DrawOwn();
-        // 0番の画像を描画します
-        //gc.DrawImage(0, 0, 0);
+        counter.DrawOwn();
 
-        // 黒の文字を描画します
-        // gc.SetColor(0, 0, 0);
-        // gc.SetFontSize(48);
-        // gc.DrawString("この文字と青空の画像が", 40, 160);
-        // gc.DrawString("見えていれば成功です", 40, 270);
-        gc.DrawRightString($"{sec}s", 630, 10);
+        //gc.DrawRightString($"{sec}s", 630, 10);
     }
 }
