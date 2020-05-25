@@ -45,6 +45,5 @@ public class BallManager : ISdpGameObject {
         });
 
         if (CanGenerateBalls) for (var i = 0; i < deletedBallNum; i++) AddBall(BallColor.RANDOM);
-        //Debug.Log(Balls.Count.ToString());
     }
 }

@@ -18,8 +18,6 @@ public class Ball : ISdpGameObject {
         Color = ballColor;
         radios = 24;
         IsActive = true;
-        
-        //displaySize = new Vector2Int(480, 640);
     }
 
     public void DrawOwn(Action callback = null) {
@@ -27,7 +25,6 @@ public class Ball : ISdpGameObject {
     }
 
     public void UpdateOwn() {
-        //Debug.Log("position: " + Position.ToString() + "active: " + IsActive.ToString());
         Position.y += (int)Speed.y;
         IsActive = Position.y < displaySize.y;
     }

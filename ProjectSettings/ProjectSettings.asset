@@ -166,7 +166,7 @@ PlayerSettings:
     Android: jp.ac.keio.sfc.sdp
     Standalone: unity.Keio University.GameCanvas
     Tizen: jp.ac.keio.sfc.sdp
-    iPhone: jp.ac.keio.sfc.sdp
+    iPhone: jp.ac.keio.sfc.sdp.sabaniki
     tvOS: jp.ac.keio.sfc.sdp
   buildNumber:
     iPhone: 0
@@ -895,7 +895,6 @@ PlayerSettings:
   XboxOnePersistentLocalStorageSize: 0
   XboxOneXTitleMemory: 8
   XboxOneOverrideIdentityName: 
-  XboxOneOverrideIdentityPublisher: 
   vrEditorSettings:
     daydream:
       daydreamIconForeground: {fileID: 0}

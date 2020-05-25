@@ -10,12 +10,16 @@ public class Counter : ISdpGameObject {
     private float currentTime;
     private float TimeRemaining => limitTime - currentTime;
     public bool IsGameFinished => TimeRemaining < 0;
-
+    
+    private BallColor beforeHitBallColor;
+    private int numOfConsecutiveCollisions;
     public Counter(Proxy gc, int limitTime) {
         this.gc = gc;
         point = 0;
         this.limitTime = limitTime;
         currentTime = gc.TimeSinceStartup;
+        beforeHitBallColor = BallColor.RANDOM;
+        numOfConsecutiveCollisions = 1;
     }
 
     public void DrawOwn(Action callback = null) {
@@ -23,7 +27,7 @@ public class Counter : ISdpGameObject {
             TimeRemaining > 0 ? $"time: {TimeRemaining.ToString(CultureInfo.InvariantCulture)}\n" 
                 : "finished!!", 0, 0
             );
-        gc.DrawString($"point: {point.ToString()}", 0, 24);
+        gc.DrawString($"point: {point.ToString()}\ncombo: {(numOfConsecutiveCollisions - 1).ToString()}", 0, 24);
     }
 
     public void UpdateOwn() {
@@ -32,6 +36,11 @@ public class Counter : ISdpGameObject {
 
     public void AddPoint(Ball ball) {
         if (TimeRemaining < 0) return;
-        point += (int) ball.Color;
+        
+        if (ball.Color == beforeHitBallColor) numOfConsecutiveCollisions++;
+        else numOfConsecutiveCollisions = 1;
+        beforeHitBallColor = ball.Color;
+        
+        point += (int) ball.Color * numOfConsecutiveCollisions;
     }
 }

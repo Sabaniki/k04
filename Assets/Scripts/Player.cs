@@ -34,11 +34,11 @@ public class Player: ISdpGameObject {
 
     public void UpdateOwn() {
         if (gc.GetPointerFrameCount(0) <= 0) return;
-        if (gc.GetPointerX(0) > ScreenSize.x / 2) {
+        if (gc.GetPointerX(0) > ScreenSize.x / 2 && position.x < ScreenSize.x) {
             position.x += speed.x;
             direction = PlayerDirection.RIGHT;
         }
-        else {
+        else if(0 < position.x) {
             position.x -= speed.x;
             direction = PlayerDirection.LEFT;
         }
