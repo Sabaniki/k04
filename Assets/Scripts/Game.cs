@@ -10,6 +10,7 @@ public sealed class Game : GameBase {
     int sec = 0;
     private Vector2Int screenSize;
     private BallGenerator ballGenerator;
+    private Player player;
     /// <summary>
     /// 初期化処理
     /// </summary>
@@ -17,10 +18,12 @@ public sealed class Game : GameBase {
         screenSize = new Vector2Int(720, 1280);
         // キャンバスの大きさを設定します
         gc.SetResolution(screenSize.x, screenSize.y);
+        Player.ScreenSize = screenSize;
         ballGenerator = new BallGenerator(gc, screenSize);
         ballGenerator.AddBall(BallColor.RED);
         ballGenerator.AddBall(BallColor.BLUE);
         ballGenerator.AddBall(BallColor.YELLOW);
+        player = new Player(gc);
     }
 
 
@@ -31,7 +34,7 @@ public sealed class Game : GameBase {
         // 起動からの経過時間を取得します
         sec = (int) gc.TimeSinceStartup;
         ballGenerator.UpdateOwn();
-        ballGenerator.DrawOwn();
+        player.UpdateOwn();
     }
 
     /// <summary>
@@ -41,14 +44,16 @@ public sealed class Game : GameBase {
         // 画面を白で塗りつぶします
         gc.ClearScreen();
 
+        ballGenerator.DrawOwn();
+        player.DrawOwn();
         // 0番の画像を描画します
-        gc.DrawImage(0, 0, 0);
+        //gc.DrawImage(0, 0, 0);
 
         // 黒の文字を描画します
-        gc.SetColor(0, 0, 0);
-        gc.SetFontSize(48);
-        gc.DrawString("この文字と青空の画像が", 40, 160);
-        gc.DrawString("見えていれば成功です", 40, 270);
+        // gc.SetColor(0, 0, 0);
+        // gc.SetFontSize(48);
+        // gc.DrawString("この文字と青空の画像が", 40, 160);
+        // gc.DrawString("見えていれば成功です", 40, 270);
         gc.DrawRightString($"{sec}s", 630, 10);
     }
 }

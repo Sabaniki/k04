@@ -554,6 +554,7 @@
     <Compile Include="Assets\Scripts\BallGenerator.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerDirection.cs" />
     <Compile Include="Assets\Scripts\SdpGameObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -27,7 +27,7 @@ public class Ball : ISdpGameObject {
     }
 
     public void UpdateOwn() {
-        Debug.Log("position: " + Position.ToString());
+        Debug.Log("position: " + Position.ToString() + "active: " + IsActive.ToString());
         Position.y += Speed.y;
         IsActive = Position.y < displaySize.y;
     }

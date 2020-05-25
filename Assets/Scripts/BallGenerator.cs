@@ -22,8 +22,9 @@ public class BallGenerator : ISdpGameObject {
             new Ball(
                 gc, 
                 ballColor,
-                new Vector2Int((int) (Random.value * ScreenSize.x), (int) (Random.value * ScreenSize.y)),
-                new Vector2Int(3, 3))
+                new Vector2Int((int) (Random.value * ScreenSize.x), 0),
+                new Vector2Int(5,   5)
+                )
         );
     }
 
@@ -32,7 +33,7 @@ public class BallGenerator : ISdpGameObject {
 
     public void UpdateOwn() {
         Balls.ToList().ForEach(ball => ball.UpdateOwn());
-        Balls.ToList().RemoveAll(ball => !ball.IsActive);
+        Balls.RemoveAll(ball => !ball.IsActive);
         Debug.Log(Balls.Count.ToString());
     }
 }
