@@ -5,36 +5,31 @@ using GameCanvas;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class BallManager : ISdpGameObject {
-    public List<Ball> Balls { get; private set; }
-    public Proxy gc { get; set; }
-    private Vector2Int screenSize;
+public class BallManager : SdpGameObject {
+    public List<Ball> Balls { get; }
     public bool CanGenerateBalls;
 
-    public BallManager(Proxy gc, Vector2Int screenSize) {
+    public BallManager(Proxy gc): base(gc) {
         Balls = new List<Ball>();
-        this.gc = gc;
-        this.screenSize = screenSize;
         CanGenerateBalls = true;
     }
 
     public void AddBall(BallColor ballColor) {
-        if(ballColor == BallColor.RANDOM) ballColor = (BallColor) Enum.ToObject(typeof(BallColor), (int) (Random.value * 2 + 1.5));
-        Ball.displaySize = screenSize;
+        if(ballColor == BallColor.Random) ballColor = (BallColor) Enum.ToObject(typeof(BallColor), (int) (Random.value * 2 + 1.5));
         Balls.Add(
             new Ball(
                 gc, 
                 ballColor,
-                new Vector2Int((int) (Random.value * screenSize.x), (int) (Random.value * 2 * screenSize.y) - screenSize.y),
+                new Vector2Int((int) (Random.value * ScreenSize.x), (int) (Random.value * 2 * ScreenSize.y) - ScreenSize.y),
                 new Vector2(0,   (Random.value * 3) + 3)
                 )
         );
     }
 
-    public void DrawOwn(Action callback = null) => Balls.ToList().ForEach(ball => ball.DrawOwn());
+    public override void DrawOwn() => Balls.ToList().ForEach(ball => ball.DrawOwn());
 
 
-    public void UpdateOwn() {
+    public override void UpdateOwn() {
         var deletedBallNum = 0;
         
         Balls.ToList().ForEach(ball => ball.UpdateOwn());
@@ -44,6 +39,6 @@ public class BallManager : ISdpGameObject {
             return true;
         });
 
-        if (CanGenerateBalls) for (var i = 0; i < deletedBallNum; i++) AddBall(BallColor.RANDOM);
+        if (CanGenerateBalls) for (var i = 0; i < deletedBallNum; i++) AddBall(BallColor.Random);
     }
 }

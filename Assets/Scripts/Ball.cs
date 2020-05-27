@@ -2,30 +2,24 @@ using System;
 using GameCanvas;
 using UnityEngine;
 
-public class Ball : ISdpGameObject {
-    public Proxy gc { get; set; }
-    public Vector2Int Position;
-    public Vector2 Speed;
-    public BallColor Color { get; private set; }
-    public readonly int radios;
-    public static Vector2Int displaySize;
+public class Ball : MovingSdpGameObject {
+    public BallColor Color { get; }
     public bool IsActive { get; set; }
 
-    public Ball(Proxy gc, BallColor ballColor, Vector2Int position, Vector2 speed) {
-        this.gc = gc;
+    public Ball(Proxy gc, BallColor ballColor, Vector2Int position, Vector2 speed): 
+        base(gc, new Vector2Int(24, 24), position, speed) {
         Position = position;
         Speed = speed;
         Color = ballColor;
-        radios = 24;
         IsActive = true;
     }
 
-    public void DrawOwn(Action callback = null) {
+    public override void DrawOwn() {
         gc.DrawImage((int)Color, Position.x, Position.y);
     }
 
-    public void UpdateOwn() {
+    public override void UpdateOwn() {
         Position.y += (int)Speed.y;
-        IsActive = Position.y < displaySize.y;
+        IsActive = Position.y < ScreenSize.y;
     }
 }

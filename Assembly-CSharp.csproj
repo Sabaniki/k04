@@ -553,6 +553,7 @@
     <Compile Include="Assets\Scripts\BallColor.cs" />
     <Compile Include="Assets\Scripts\BallManager.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
+    <Compile Include="Assets\Scripts\MovingSdpGameObject.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerDirection.cs" />
     <Compile Include="Assets\Scripts\Counter.cs" />

@@ -11,9 +11,8 @@ public sealed class Game : GameBase {
     public override void InitGame() {
         screenSize = new Vector2Int(720, 1280);
         gc.SetResolution(screenSize.x, screenSize.y);
-        Player.ScreenSize = screenSize;
-        ballManager = new BallManager(gc, screenSize);
-        for (var i = 0; i < 30; i++) ballManager.AddBall(BallColor.RANDOM);
+        ballManager = new BallManager(gc);
+        for (var i = 0; i < 30; i++) ballManager.AddBall(BallColor.Random);
         player = new Player(gc);
         counter = new Counter(gc, 30);
     }

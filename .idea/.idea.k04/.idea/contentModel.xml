@@ -12,6 +12,7 @@
           <e p="BallManager.cs" t="Include" />
           <e p="Counter.cs" t="Include" />
           <e p="Game.cs" t="Include" />
+          <e p="MovingSdpGameObject.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="PlayerDirection.cs" t="Include" />
           <e p="SdpGameObject.cs" t="Include" />

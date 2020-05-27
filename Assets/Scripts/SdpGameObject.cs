@@ -1,8 +1,17 @@
 using System;
 using GameCanvas;
+using UnityEngine;
 
-public interface ISdpGameObject {
-    Proxy gc { get; set; }
-    void DrawOwn(Action callback = null);
-    void UpdateOwn();
-}
+public abstract class SdpGameObject {
+    protected Proxy gc { get; }
+    protected static Vector2Int ScreenSize = new Vector2Int(720, 1280);
+    private SdpGameObject(Proxy gc, Vector2Int screenSize) {
+        this.gc = gc;
+        ScreenSize = screenSize;
+    }
+
+    protected SdpGameObject(Proxy gc) {
+        this.gc = gc;
+    }
+    public virtual void DrawOwn(){}
+    public virtual void UpdateOwn(){}

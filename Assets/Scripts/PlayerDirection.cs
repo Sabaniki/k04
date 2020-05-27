@@ -1,4 +1,4 @@
 public enum PlayerDirection {
-    RIGHT = 4,
-    LEFT
+    Right = 4,
+    Left
 }
