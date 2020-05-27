@@ -18,10 +18,10 @@ public sealed class Game : GameBase {
     }
 
     public override void UpdateGame() {
-        counter.UpdateOwn();
-        player.UpdateOwn();
+        counter.Update();
+        player.Update();
         ballManager.CanGenerateBalls = !counter.IsGameFinished;
-        ballManager.UpdateOwn();
+        ballManager.Update();
         ballManager.Balls.ToList().ForEach(ball => {
             
             if (ball.IsActive && player.CheckHitBall(ball)) {
@@ -37,9 +37,9 @@ public sealed class Game : GameBase {
     public override void DrawGame() {
         gc.ClearScreen();
 
-        ballManager.DrawOwn();
-        player.DrawOwn();
-        counter.DrawOwn();
+        ballManager.Draw();
+        player.Draw();
+        counter.Draw();
 
     }
 }

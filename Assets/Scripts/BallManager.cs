@@ -26,13 +26,13 @@ public class BallManager : SdpGameObject {
         );
     }
 
-    public override void DrawOwn() => Balls.ToList().ForEach(ball => ball.DrawOwn());
+    public override void Draw() => Balls.ToList().ForEach(ball => ball.Draw());
 
 
-    public override void UpdateOwn() {
+    public override void Update() {
         var deletedBallNum = 0;
         
-        Balls.ToList().ForEach(ball => ball.UpdateOwn());
+        Balls.ToList().ForEach(ball => ball.Update());
         Balls.RemoveAll(ball => {
             if (ball.IsActive) return false;
             deletedBallNum++;

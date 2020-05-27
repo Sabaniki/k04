@@ -20,7 +20,7 @@ public class Counter : SdpGameObject {
         numOfConsecutiveCollisions = 1;
     }
 
-    public override void DrawOwn() {
+    public override void Draw() {
         gc.DrawString(
             TimeRemaining > 0 ? $"time: {TimeRemaining.ToString(CultureInfo.InvariantCulture)}\n" 
                 : "finished!!", 0, 0
@@ -28,7 +28,7 @@ public class Counter : SdpGameObject {
         gc.DrawString($"point: {point.ToString()}\ncombo: {(numOfConsecutiveCollisions - 1).ToString()}", 0, 24);
     }
 
-    public override void UpdateOwn() {
+    public override void Update() {
         currentTime = gc.TimeSinceStartup;
     }
 

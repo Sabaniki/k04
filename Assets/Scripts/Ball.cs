@@ -14,11 +14,11 @@ public class Ball : MovingSdpGameObject {
         IsActive = true;
     }
 
-    public override void DrawOwn() {
+    public override void Draw() {
         gc.DrawImage((int)Color, Position.x, Position.y);
     }
 
-    public override void UpdateOwn() {
+    public override void Update() {
         Position.y += (int)Speed.y;
         IsActive = Position.y < ScreenSize.y;
     }

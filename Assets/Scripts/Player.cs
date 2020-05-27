@@ -14,7 +14,7 @@ public class Player : MovingSdpGameObject {
         ) {
     }
 
-    public override void DrawOwn() {
+    public override void Draw() {
         gc.DrawClipImage((int) direction, Position.x, Position.y, 0, 64, Size.x, Size.y);
     }
 
@@ -27,7 +27,7 @@ public class Player : MovingSdpGameObject {
         return isHit;
     }
 
-    public override void UpdateOwn() {
+    public override void Update() {
         if (gc.GetPointerFrameCount(0) <= 0) return;
         if (gc.GetPointerX(0) > ScreenSize.x / 2 && Position.x < ScreenSize.x - Size.x) {
             Position.x += (int)Speed.x;
